@@ -12,6 +12,7 @@ import { PageHero } from "../components/shared/PageHero";
 import { calcMonthlySavings } from "../utils/simulation";
 import { useParams } from "react-router-dom";
 import { useSimulationStorage } from "../hooks/useSimulationStorage";
+import { AIInsight } from "../components/features/simulationResults/AIInsightCardProps";
 
 // Simulação de objeto criado a partir de respostas do usuário. NÃO É MAIS NECESSÁRIO A PARTIR DO MOMENTO EM QUE AS INFORMAÇÕES VIEREM DO LOCALSTORAGE
 // const mock: SimulationFormData = {
@@ -66,10 +67,7 @@ export function SimulationResultsPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="bg-card order-2 rounded-2xl p-6 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.2)] lg:order-1 lg:col-span-2">
-          Painel de Insights
-        </div>
-
+        <AIInsight simulationId={data.id} />
         <div className="order-1 flex flex-col gap-6 lg:order-2">
           <Card
             icon={Wallet}
