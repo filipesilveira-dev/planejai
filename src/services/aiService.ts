@@ -34,7 +34,7 @@ export interface InsightData {
 // variável de ambiente criada e sendo atribuída a API_KEY por meio de "import.meta.env"
 const API_KEY = String(import.meta.env.VITE_GEMINI_API_KEY);
 const MODEL_NAME = "gemini-flash-latest";
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?${API_KEY}`;
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
 
 // recebe o prompt criado como argumento e faz uma requisição a API do Gemini, retornando o resultado da simulação
 const callGeminiAPI = async (prompt: string) => {

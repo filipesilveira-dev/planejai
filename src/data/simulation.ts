@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import type { FormStepProps } from "../components/features/simulation/FormStep";
+import type { InsightData } from "../services/aiService";
 
 export const simulationFormSteps = [
   {
@@ -93,4 +94,8 @@ export type SimulationFormData = Record<
 >;
 
 // type criado para tipar SimulationFormData com um id sem alterá-lo
-export type SimulationRecord = SimulationFormData & { id: string };
+export type SimulationRecord = SimulationFormData & { 
+  id: string
+  // acrescenta à tipagem um insight que seria o resultado de uma simulação já feita
+  insight?: InsightData
+};

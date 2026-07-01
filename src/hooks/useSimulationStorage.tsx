@@ -26,7 +26,7 @@ export const useSimulationStorage = () => {
     );
 
     // o custom hook retorna o id criado em saveFormData
-    return id
+    return id;
   };
 
   // Função que recupera um array tipado como SimulationRecord do localStorage com base no seu id
@@ -41,6 +41,23 @@ export const useSimulationStorage = () => {
     return savedData.find((record) => record.id === id) || null;
   };
 
-  // O hook retorna um objeto contendo a função saveFormData e getFormData. Assim, qualquer componente que instanciar esse hook terá acesso a essa função para salvar dados.
-  return { saveFormData, getFormData };
+  // Função responsável por sobrescrever (atualizar) um registro presente no localStorage por um novo conjunto de dados {...data}
+  const updateSimulation = (id: string, data: SimulationRecord) => {
+    // variável que recebe os dados da chave 'simulation-data' (LOCAL_STORAGE_KEY). Pode ser "null"
+    const storage = localStorage.getItem(LOCAL_STORAGE_KEY);
+    // caso haja dados salvos, ou seja storage=true, então esses dados, até então em JSON, serão transformado em array de objetos javascript. Caso contrário, um array vazio será atribuído para que não quebre a aplicação nas linhas seguintes
+    const savedData = storage
+      ? (JSON.parse(storage) as SimulationRecord[])
+      : [];
+
+    // variável que recebe o resultado de um map() feito no agora array que estava no localStorage. Ele verifica em savedData (array) se há alguma gravação com o memso id passado com argumento
+    const updated = savedData.map((record) =>
+      record.id === id ? { ...data } : record,
+    );
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+  };
+
+  // O hook retorna um objeto contendo a função saveFormData, getFormData e updatedSimulation. Assim, qualquer componente que instanciar esse hook terá acesso a essa função para salvar dados.
+  return { saveFormData, getFormData, updateSimulation };
 };
