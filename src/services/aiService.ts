@@ -11,7 +11,7 @@ interface GeminiResponse {
 
 export interface InsightData {
   feasibility: {
-    status: "viable" | "needs_adjustment" | "unfeaseble";
+    status: "viable" | "needs_adjustment" | "unfeasible";
     content: string;
   };
   diagnosis: {
