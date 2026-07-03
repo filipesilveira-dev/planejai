@@ -1,4 +1,6 @@
+// para utilização do skeleton, é necessário importar o componente e o css
 import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
 import { useInsight } from "../../../hooks/useInght";
 import { Content } from "../Insights/Content";
 import { Error } from "../Insights/Error";
@@ -21,7 +23,7 @@ export function AIInsight({ simulationId }: AIInsightProps) {
       </div>
 
       {isLoading && (
-        <div>
+        <div className="flex">
           <Skeleton
             count={10}
             baseColor="var(--color-skeleton-base)"
