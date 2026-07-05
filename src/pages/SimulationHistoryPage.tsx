@@ -3,8 +3,33 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../components/shared/Button";
 import type { SimulationRecord } from "../data/simulation";
 
-
 const LOCAL_STORAGE_KEY = "simulation-data";
+
+// função criada para pegar o valor de 'status' e estabelecer diferentes resultados para cada possibilidade
+const getStatusMessage = (status?: string) => {
+  switch (status) {
+    case "viable":
+      return (
+        <span className="w-fit rounded-full px-2.5 py-0.5 text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+          Meta viável
+        </span>
+      );
+    case "unfeasible":
+      return (
+        <span className="w-fit rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
+          Meta inviável no prazo
+        </span>
+      );
+    case "needs_adjustment": // Exemplo de um terceiro status
+      return (
+        <span className="w-fit rounded-full px-2.5 py-0.5 text-xs font-semibold bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+          Desafiador, mas possível. 🚀
+        </span>
+      );
+    default:
+      return <span>Status da meta não avaliado.</span>;
+  }
+};
 
 export function SimulationHistoryPage() {
   const [simulations, setSimulations] = useState<SimulationRecord[]>([]);
@@ -65,11 +90,14 @@ export function SimulationHistoryPage() {
               <p className="text-sm text-muted-foreground">
                 Renda: R$ {sim.income} reais
               </p>
-               <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 Custos fixos: R$ {sim.expenses} reais
               </p>
-               <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 Custo da meta: R$ {sim.goalAmount} reais
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {getStatusMessage(sim.insight?.feasibility.status)}
               </p>
             </div>
 
@@ -79,7 +107,9 @@ export function SimulationHistoryPage() {
                 Excluir
               </Button>
               <Button
-              onClick={()=>{void navigate(`/resultado/${sim.id}`)}}
+                onClick={() => {
+                  void navigate(`/resultado/${sim.id}`);
+                }}
                 variant="primary"
                 className="bg-primary text-white px-4 py-2 rounded-lg text-sm"
               >
