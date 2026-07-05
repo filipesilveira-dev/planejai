@@ -79,6 +79,7 @@ export function SimulationHistoryPage() {
                 Excluir
               </Button>
               <Button
+              onClick={()=>{void navigate(`/resultado/${sim.id}`)}}
                 variant="primary"
                 className="bg-primary text-white px-4 py-2 rounded-lg text-sm"
               >
