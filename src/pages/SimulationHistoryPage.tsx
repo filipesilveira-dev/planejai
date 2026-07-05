@@ -20,10 +20,10 @@ const getStatusMessage = (status?: string) => {
           Meta inviável no prazo
         </span>
       );
-    case "needs_adjustment": // Exemplo de um terceiro status
+    case "needs_adjustment":
       return (
         <span className="w-fit rounded-full px-2.5 py-0.5 text-xs font-semibold bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
-          Desafiador, mas possível. 🚀
+          Desafiador, mas possível
         </span>
       );
     default:
@@ -48,6 +48,12 @@ export function SimulationHistoryPage() {
     };
     getFormDataHistory();
   }, []);
+
+  const handleDelete = (id: string)=>{
+    const filteredSimulation = simulations.filter((sim)=> sim.id !== id)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(filteredSimulation));
+    setSimulations(filteredSimulation)
+}
 
   // Se não houver simulações
   if (simulations.length === 0) {
@@ -103,7 +109,7 @@ export function SimulationHistoryPage() {
 
             <div className="mt-6 flex justify-between gap-4">
               {/* Botões de Ação */}
-              <Button variant="ghost" className="text-red-500 hover:underline">
+              <Button variant="ghost" className="text-red-500 hover:underline" onClick={()=>handleDelete(sim.id)}>
                 Excluir
               </Button>
               <Button

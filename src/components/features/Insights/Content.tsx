@@ -67,7 +67,7 @@ export function Content({ insight }: ContentProps) {
             </span>
           )}
         </div>
-        <Paragraph>{insight.feasibility.status}</Paragraph>
+        <Paragraph>{insight.feasibility.content}</Paragraph>
       </section>
 
       <section>
